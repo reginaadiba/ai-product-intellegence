@@ -1,4 +1,4 @@
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.models.product import Product
@@ -15,14 +15,59 @@ def create_product(
     return product
 
 
+# def get_products(
+#     db: Session,
+# ) -> list[Product]:
+#     statement = select(Product)
+
+#     result = db.execute(statement)
+
+#     return list(result.scalars().all())
+
 def get_products(
     db: Session,
-) -> list[Product]:
+    page: int,
+    limit: int,
+    search: str | None = None,
+    category: str | None = None,
+):
     statement = select(Product)
+
+    if search:
+        search_pattern = f"%{search}%"
+
+        statement = statement.where(
+            Product.name.ilike(search_pattern)
+            | Product.description.ilike(search_pattern)
+            | Product.brand.ilike(search_pattern)
+        )
+
+    if category:
+        statement = statement.where(
+            Product.category.ilike(category)
+        )
+    # jika category ada tabel tersendiri gimana?
+
+    count_statement = select(func.count()).select_from(
+        statement.subquery()
+    )
+
+    total = db.execute(count_statement).scalar_one()
+
+    offset = (page - 1) * limit
+
+    statement = (
+        statement
+        .order_by(Product.id.desc())
+        .offset(offset)
+        .limit(limit)
+    )
 
     result = db.execute(statement)
 
-    return list(result.scalars().all())
+    products = list(result.scalars().all())
+
+    return products, total
 
 
 def get_product_by_id(

@@ -21,3 +21,9 @@ class ProductResponse(BaseModel):
     category: str
     brand: str
     price: float
+    
+class ProductListResponse(BaseModel):
+    items: list[ProductResponse]
+    page: int
+    limit: int
+    total: int

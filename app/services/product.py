@@ -20,11 +20,26 @@ def create_product(
     )
 
 
+# def get_products(
+#     db: Session,
+# ) -> list[Product]:
+
+#     return product_repository.get_products(db)
+
 def get_products(
     db: Session,
-) -> list[Product]:
-
-    return product_repository.get_products(db)
+    page: int,
+    limit: int,
+    search: str | None = None,
+    category: str | None = None,
+):
+    return product_repository.get_products(
+        db=db,
+        page=page,
+        limit=limit,
+        search=search,
+        category=category,
+    )
 
 
 def get_product(
