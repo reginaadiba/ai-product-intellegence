@@ -27,3 +27,12 @@ class ProductListResponse(BaseModel):
     page: int
     limit: int
     total: int
+    
+class ProductSemanticSearchResponse(BaseModel):
+    id: int
+    name: str
+    description: str
+    category: str
+    brand: str
+    price: float
+    similarity: float

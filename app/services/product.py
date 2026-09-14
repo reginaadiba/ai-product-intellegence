@@ -3,6 +3,8 @@ from sqlalchemy.orm import Session
 from app.models.product import Product
 from app.repositories import product as product_repository
 from app.schemas.product import ProductCreate, ProductUpdate
+from app.services.embedding import generate_embedding
+from app.repositories.product import search_by_embedding
 
 
 def create_product(
@@ -51,8 +53,37 @@ def get_product(
         db,
         product_id,
     )
+    
+    
+def semantic_search(
+    db,
+    query: str,
+    limit: int = 10,
+    threshold: float = 0.3,
+):
+    query_embedding = generate_embedding(query)
 
+    results = search_by_embedding(
+        db,
+        query_embedding,
+        limit,
+        threshold,
+    )
 
+    return [
+        {
+            "id": product.id,
+            "name": product.name,
+            "description": product.description,
+            "category": product.category,
+            "brand": product.brand,
+            "price": product.price,
+            "similarity": round(1 - distance, 4),
+        }
+        for product, distance in results
+    ]
+    
+    
 def update_product(
     db: Session,
     product_id: int,

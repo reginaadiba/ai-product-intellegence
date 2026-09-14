@@ -70,6 +70,33 @@ def get_products(
     return products, total
 
 
+def search_by_embedding(
+    db,
+    query_embedding: list[float],
+    limit: int = 10,
+    threshold: float = 0.3,
+):
+    distance = Product.embedding.cosine_distance(query_embedding)
+    # Similarity tinggi = semakin mirip
+    # distance kecil → semakin mirip
+    # distance besar → semakin tidak mirip
+    
+    stmt = (
+        select(Product, distance.label("distance"))
+        .where(
+            Product.embedding.is_not(None),
+            distance <= (1 - threshold),
+        )
+        .order_by(
+            distance
+        )
+        .limit(limit)
+    )
+
+    # return db.scalars(stmt).all()
+    return db.execute(stmt).all()
+
+
 def get_product_by_id(
     db: Session,
     product_id: int,

@@ -1,4 +1,5 @@
 from datetime import datetime
+from pgvector.sqlalchemy import Vector
 
 from sqlalchemy import DateTime, Float, String, Text
 from sqlalchemy.orm import Mapped, mapped_column
@@ -37,6 +38,11 @@ class Product(Base):
     price: Mapped[float] = mapped_column(
         Float,
         nullable=False,
+    )
+    
+    embedding: Mapped[list[float] | None] = mapped_column(
+        Vector(384),
+        nullable=True,
     )
 
     created_at: Mapped[datetime] = mapped_column(
