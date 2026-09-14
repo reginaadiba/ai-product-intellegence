@@ -1,0 +1,30 @@
+[
+  {
+    "name": "iPhone 15",
+    "description": "Smartphone Apple dengan kamera dan performa tinggi",
+    "category": "Smartphone",
+    "brand": "Apple",
+    "price": 15000000
+  },
+  {
+    "name": "Galaxy S24",
+    "description": "Smartphone Samsung dengan layar AMOLED dan kamera canggih",
+    "category": "Smartphone",
+    "brand": "Samsung",
+    "price": 13000000
+  },
+  {
+    "name": "MacBook Air M3",
+    "description": "Laptop Apple ringan dengan chip M3 untuk produktivitas",
+    "category": "Laptop",
+    "brand": "Apple",
+    "price": 18000000
+  },
+  {
+    "name": "ThinkPad X1 Carbon",
+    "description": "Laptop bisnis Lenovo yang ringan dan tahan lama",
+    "category": "Laptop",
+    "brand": "Lenovo",
+    "price": 22000000
+  }
+]
