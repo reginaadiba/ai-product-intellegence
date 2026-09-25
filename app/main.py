@@ -3,6 +3,7 @@ from sqlalchemy import text
 
 from app.core.database import engine
 from app.routers.product import router as product_router
+from app.routers.rag import router as rag_router
 
 app = FastAPI(
     title="AI Product Intelligence API",
@@ -11,6 +12,7 @@ app = FastAPI(
 )
 
 app.include_router(product_router)
+app.include_router(rag_router)
 
 @app.get("/")
 def root():
