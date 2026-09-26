@@ -74,7 +74,7 @@ def search_by_embedding(
     db,
     query_embedding: list[float],
     limit: int = 10,
-    threshold: float = 0.3,
+    threshold: float = 0.2,
 ):
     distance = Product.embedding.cosine_distance(query_embedding)
     # Similarity tinggi = semakin mirip

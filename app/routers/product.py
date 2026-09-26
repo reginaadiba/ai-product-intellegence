@@ -97,7 +97,7 @@ def get_product(
 def semantic_product_search(
     q: str = Query(min_length=1),
     limit: int = Query(default=10, ge=1, le=50),
-    threshold: float = Query(default=0.3, ge=0, le=1),
+    threshold: float = Query(default=0.2, ge=0, le=1),
     db: Session = Depends(get_db),
 ):
     return product_service.semantic_search(

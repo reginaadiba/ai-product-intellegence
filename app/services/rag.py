@@ -8,7 +8,7 @@ def retrieve_products(
     db: Session,
     query: str,
     limit: int = 5,
-    threshold: float = 0.3,
+    threshold: float = 0.2,
 ):
     query_embedding = generate_embedding(query)
 

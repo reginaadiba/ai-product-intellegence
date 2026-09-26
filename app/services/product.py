@@ -59,7 +59,7 @@ def semantic_search(
     db,
     query: str,
     limit: int = 10,
-    threshold: float = 0.3,
+    threshold: float = 0.2,
 ):
     query_embedding = generate_embedding(query)
 
